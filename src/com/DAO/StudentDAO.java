@@ -8,6 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class StudentDAO {
 
@@ -35,6 +37,7 @@ public class StudentDAO {
                 student.setPassword(rs.getString(5));
                 list.add(student);
             }
+
         return list;
 
         } catch (SQLException e) {
@@ -155,4 +158,7 @@ public class StudentDAO {
         }
         return "Update Cannot be performed";
     }
+
+
 }
+

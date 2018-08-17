@@ -20,10 +20,9 @@ public class DeleteStudent extends HttpServlet {
 
         StudentDAO studentDAO = new StudentDAO();
         Student student = studentDAO.getStudent(id);
-
         String message = studentDAO.deleteStudent(student);
 
-        RequestDispatcher rd = request.getRequestDispatcher("display.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("DisplayStudent");
         request.setAttribute("message", message);
        rd.forward(request,response);
     }
