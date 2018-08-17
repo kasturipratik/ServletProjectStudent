@@ -53,9 +53,9 @@ public class StudentDAO {
      * @return registration result
      */
     public String addStudent(Student student){
+
         Connection connection = MyConnection.getConnection();
         PreparedStatement ps = null;
-
 
         try {
             ps = connection.prepareStatement("insert into student values(?,?,?,?,?)");
@@ -138,7 +138,7 @@ public class StudentDAO {
     public String updateStudent(Student student){
         Connection connection = MyConnection.getConnection();
         PreparedStatement ps = null;
-        ResultSet rs = null;
+
 
         try {
             ps = connection.prepareStatement(
@@ -159,6 +159,29 @@ public class StudentDAO {
         return "Update Cannot be performed";
     }
 
+    public int returnMaxId()  {
+        Connection connection = MyConnection.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        int num = 99;
+
+        try {
+            ps = connection.prepareStatement(" SELECT * FROM student ORDER BY id DESC LIMIT 0, 1");
+           rs = ps.executeQuery();
+
+            if(rs.next()){
+            num  = rs.getInt("id");
+                System.out.println(num);
+            return num + 1 ;
+           }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return num+1;
+
+    }
 
 }
 

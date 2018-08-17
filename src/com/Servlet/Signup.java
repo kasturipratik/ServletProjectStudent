@@ -15,14 +15,15 @@ import java.io.IOException;
 public class Signup  extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        StudentDAO studentDAO = new StudentDAO();
+        int id = studentDAO.returnMaxId();
         String name = request.getParameter("fName");
         String address = request.getParameter("address");
         String userName = request.getParameter("username");
         String password = request.getParameter("password");
 
-        Student student = new Student(name,address,userName,password);
-        StudentDAO studentDAO = new StudentDAO();
+        Student student = new Student(id ,name,address,userName,password);
+
 
         String message = studentDAO.addStudent(student);
 
