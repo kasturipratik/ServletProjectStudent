@@ -32,7 +32,7 @@
             <c:if test="${student != null}">
                 <h2 class="text-center p-3 text-success">Update Student Form</h2>
                  <form action="update" method="post">
-                      <input type="hidden" name="id" value="<c:out value='${student.id}' />" />
+                      <input type="hidden" name="id" value="${student.id}" />
             </c:if>
             <c:if test="${student == null}">
                 <h2 class="text-center p-3 text-success">Student Sign Up form</h2>
@@ -40,17 +40,13 @@
             </c:if>
 
                 <label>Name</label>
-                <input type="text" name="fName" class="form-control" placeholder="Full Name" required
-                        value="<c:out value='${student.name}' />"/>
+                <input type="text" name="fName" class="form-control" placeholder="Full Name" value="${student.name}" required />
                 <label>Address</label>
-                <input type="text" name ="address"  step="0.01" class="form-control" placeholder="Address" required
-                        value="<c:out value='${student.address}' />" />
+                <input type="text" name ="address"  step="0.01" class="form-control" placeholder="Address"  value="${student.address}" required  />
                 <label>User Name</label>
-                <input type="text" name="username" class="form-control" placeholder="Username" required
-                        value="<c:out value='${student.userName}' />" />
+                <input type="text" name="username" class="form-control" placeholder="Username"  value="${student.userName}" required/>
                 <label>Password</label>
-                <input type="password" name="password" class="form-control" placeholder="password"
-                        value="<c:out value='${student.password}' />" required/>
+                <input type="password" name="password" class="form-control" placeholder="password" value="${student.password}" required/>
                 <div align="center">
                     <c:if test="${student != null}">
                         <input type="submit"  value="Update" class="btn btn-lg btn-warning mt-3"/>
