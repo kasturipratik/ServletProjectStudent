@@ -27,6 +27,7 @@ public class Signup  extends HttpServlet {
         String message = studentDAO.addStudent(student);
 
         RequestDispatcher rd = request.getRequestDispatcher("signup.jsp");
+
         request.setAttribute("message", message);
         rd.include(request,response);
 

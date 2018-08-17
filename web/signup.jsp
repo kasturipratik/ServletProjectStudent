@@ -19,30 +19,49 @@
 <body>
 
 <div class="container">
+    <%@include file="base.html" %>
 
-    <h2 class="text-center p-4 mt-4">Student Sign up Form</h2>
     <div class="row ">
 
         <div class="col-sm-0 col-md-3">
         </div>
         <div class="col-sm-12 col-md-6">
             <c:set var="message" value="${message}" />
+            <c:set var="student" value="${student}"/>
 
-            <h4 class="text-center text-warning"><c:out value="${message}"/></h4>
-            <form action="Signup" method="post">
+            <c:if test="${student != null}">
+                <h2 class="text-center p-3 text-success">Update Student Form</h2>
+                 <form action="update" method="post">
+                      <input type="hidden" name="id" value="<c:out value='${student.id}' />" />
+            </c:if>
+            <c:if test="${student == null}">
+                <h2 class="text-center p-3 text-success">Student Sign Up form</h2>
+                <form action="Signup" method="post">
+            </c:if>
+
                 <label>Name</label>
-                <input type="text" name="fName" class="form-control" placeholder="Full Name" required/>
+                <input type="text" name="fName" class="form-control" placeholder="Full Name" required
+                        value="<c:out value='${student.name}' />"/>
                 <label>Address</label>
-                <input type="text" name ="address"  step="0.01" class="form-control" placeholder="Address" required/>
+                <input type="text" name ="address"  step="0.01" class="form-control" placeholder="Address" required
+                        value="<c:out value='${student.address}' />" />
                 <label>User Name</label>
-                <input type="text" name="username" class="form-control" placeholder="Username" required/>
+                <input type="text" name="username" class="form-control" placeholder="Username" required
+                        value="<c:out value='${student.userName}' />" />
                 <label>Password</label>
-                <input type="password" name="password" class="form-control" placeholder="password" required/>
+                <input type="password" name="password" class="form-control" placeholder="password"
+                        value="<c:out value='${student.password}' />" required/>
                 <div align="center">
-                    <input type="submit"  value="Sign Up" class="btn btn-lg btn-warning mt-3"/>
+                    <c:if test="${student != null}">
+                        <input type="submit"  value="Update" class="btn btn-lg btn-warning mt-3"/>
+                    </c:if>
+                    <c:if test="${student == null}">
+                        <input type="submit"  value="Sign Up" class="btn btn-lg btn-warning mt-3"/>
+                    </c:if>
                 </div>
 
             </form>
+             <h4 class="text-center text-warning"><c:out value="${message}"/></h4>
         </div>
         <div class="col-sm-0 col-md-3">
         </div>

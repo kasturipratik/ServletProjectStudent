@@ -52,7 +52,7 @@ public class StudentDAO {
     public String addStudent(Student student){
         Connection connection = MyConnection.getConnection();
         PreparedStatement ps = null;
-        ResultSet rs = null;
+
 
         try {
             ps = connection.prepareStatement("insert into student values(?,?,?,?,?)");
@@ -63,7 +63,7 @@ public class StudentDAO {
             ps.setString(5,student.getPassword());
              int x = ps.executeUpdate();
              if(x >0){
-                 return "Registration SuccessFul";
+                 return "New Registration SuccessFul for "+ student.getName();
              }
 
         } catch (SQLException e) {
@@ -74,21 +74,21 @@ public class StudentDAO {
     }
 
     /**
-     * Deleting the student from the database
-     * @param id
-     * @return the message of the deletion success
+     *  Deleting the student from the database
+     * @param student
+     * @returnthe message of the deletion success
      */
-    public String deleteStudent(int id){
+    public String deleteStudent(Student student){
         Connection connection = MyConnection.getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
 
         try {
             ps = connection.prepareStatement("delete from student where id =?");
-            ps.setInt(1,id);
+            ps.setInt(1,student.getId());
             int x = ps.executeUpdate();
             if(x > 0){
-                return "Student just deleted";
+                return "Student " + student.getName() + " deleted from the database.";
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -96,6 +96,11 @@ public class StudentDAO {
         return "Student delete failed";
     }
 
+    /**
+     * get the student using the id  received from the edit button to update it later
+     * @param id
+     * @return student
+     */
     public Student getStudent(int id){
 
         Student student = null;
@@ -120,5 +125,34 @@ public class StudentDAO {
             e.printStackTrace();
         }
     return student;
+    }
+
+    /**
+     * Update the student to the database
+     * @param student
+     * @return
+     */
+    public String updateStudent(Student student){
+        Connection connection = MyConnection.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            ps = connection.prepareStatement(
+                    "update student set name= ?, address =?, username =?, password =? where id =? ");
+            ps.setString(1,student.getName());
+            ps.setString(2,student.getAddress());
+            ps.setString(3,student.getUserName());
+            ps.setString(4,student.getPassword());
+            ps.setInt(5,student.getId());
+
+            int x = ps.executeUpdate();
+            if(x > 0){
+                return "Update Successful for " + student.getName();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return "Update Cannot be performed";
     }
 }

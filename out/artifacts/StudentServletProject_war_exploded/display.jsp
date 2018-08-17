@@ -20,37 +20,41 @@
 </head>
 <body>
 <%--jstl configuration--%>
+<div class="container">
 
-<h3 class="text-center warning">
-    <c:set var="message" value="${message}" />
-</h3>
-<div>
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Address</th>
-            <th>User Name</th>
-            <th>Password</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <c:forEach var="st" items="${studentList}">
-        <tr>
-            <td><c:out value="${st.id}" /></td>
-            <td><c:out value="${st.name}" /></td>
-            <td><c:out value="${st.address}" /></td>
-            <td><c:out value="${st.userName}" /></td>
-            <td><c:out value="${st.password}" /></td>
-            <td>
-                <a href="/edit?id=<c:out value='${st.id}' />">Edit</a>
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="/delete?id=<c:out value='${st.id}' />">Delete</a>
-            </td>
-        </tr>
-        </c:forEach>
-    </table>
+        <%@include file="base.html" %>
+        <c:set var="message" value="${message}" />
+        <h3 class="text-center warning mt-5">
+            <c:out  value="${message}" />
+        </h3>
+        <div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>User Name</th>
+                    <th>Password</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <c:forEach var="st" items="${studentList}">
+                <tr>
+                    <td><c:out value="${st.id}" /></td>
+                    <td><c:out value="${st.name}" /></td>
+                    <td><c:out value="${st.address}" /></td>
+                    <td><c:out value="${st.userName}" /></td>
+                    <td><c:out value="${st.password}" /></td>
+                    <td>
+                        <a href="/edit?id=<c:out value='${st.id}' />">Edit</a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="/delete?id=<c:out value='${st.id}' />">Delete</a>
+                    </td>
+                </tr>
+                </c:forEach>
+            </table>
+        </div>
 </div>
 </body>
 </html>
