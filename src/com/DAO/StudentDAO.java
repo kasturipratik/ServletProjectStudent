@@ -11,6 +11,11 @@ import java.util.ArrayList;
 
 public class StudentDAO {
 
+    /**
+     * method to get all the students from the database
+     * @param list
+     * @return list of studetns from the database
+     */
     public ArrayList<Student> getStudent(ArrayList<Student> list ){
     Connection connection = MyConnection.getConnection();
     PreparedStatement ps = null;
@@ -39,6 +44,11 @@ public class StudentDAO {
     return null;
     }
 
+    /**
+     * This method gets the data from the form and stores it into the database
+     * @param student
+     * @return registration result
+     */
     public String addStudent(Student student){
         Connection connection = MyConnection.getConnection();
         PreparedStatement ps = null;
@@ -61,5 +71,54 @@ public class StudentDAO {
         }
 
         return "Registration Failed";
+    }
+
+    /**
+     * Deleting the student from the database
+     * @param id
+     * @return the message of the deletion success
+     */
+    public String deleteStudent(int id){
+        Connection connection = MyConnection.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            ps = connection.prepareStatement("delete from student where id =?");
+            ps.setInt(1,id);
+            int x = ps.executeUpdate();
+            if(x > 0){
+                return "Student just deleted";
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return "Student delete failed";
+    }
+
+    public Student getStudent(int id){
+
+        Student student = null;
+        Connection connection = MyConnection.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            ps = connection.prepareStatement("select * from student where id =?");
+            ps.setInt(1,id);
+
+            ResultSet resultSet = ps.executeQuery();
+
+            if(resultSet.next()){
+                String name = resultSet.getString("name");
+                String address = resultSet.getString("address");
+                String userName = resultSet.getString("username");
+                String password = resultSet.getString("password");
+                student = new Student(id, name,address,userName,password);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    return student;
     }
 }

@@ -22,6 +22,14 @@ public class Student {
         this.password = password;
     }
 
+    public Student(int id, String name, String address, String userName, String password) {
+        this.id = id;
+        this.name = name;
+        this.address = address;
+        this.userName = userName;
+        this.password = password;
+    }
+
     public int getId() {
         return id;
     }

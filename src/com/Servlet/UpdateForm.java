@@ -10,24 +10,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 
-@WebServlet("/DisplayStudent")
-public class DisplayStudent extends HttpServlet {
+@WebServlet("/edit")
+public class UpdateForm extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        ArrayList<Student> students = new ArrayList<>();
+        int id = Integer.parseInt(request.getParameter("id"));
         StudentDAO studentDAO = new StudentDAO();
-
-        studentDAO.getStudent(students);
-
-        RequestDispatcher rs = request.getRequestDispatcher("display.jsp");
-        request.setAttribute("studentList", students);
+        Student student = studentDAO.getStudent(id);
+        RequestDispatcher rs = request.getRequestDispatcher("signup.jsp");
+        request.setAttribute("student", student);
 
         rs.forward(request,response);
+
     }
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         doGet(request,response);
     }
 }

@@ -1,7 +1,6 @@
 package com.Servlet;
 
 import com.DAO.StudentDAO;
-import com.model.Student;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,23 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 
-@WebServlet("/DisplayStudent")
-public class DisplayStudent extends HttpServlet {
+@WebServlet("/delete")
+public class DeleteStudent extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        ArrayList<Student> students = new ArrayList<>();
+        int id =Integer.parseInt(request.getParameter("id"));
         StudentDAO studentDAO = new StudentDAO();
+        String message = studentDAO.deleteStudent(id);
 
-        studentDAO.getStudent(students);
+        RequestDispatcher rd = request.getRequestDispatcher("display.jsp");
+        request.setAttribute("message", message);
 
-        RequestDispatcher rs = request.getRequestDispatcher("display.jsp");
-        request.setAttribute("studentList", students);
-
-        rs.forward(request,response);
+        response.sendRedirect("DisplayStudent");
     }
+
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request,response);
     }
